@@ -1,19 +1,33 @@
-user_input = list(map(float, input().split()))
+user_input = input()
 
+parts = user_input.strip().lower().split()
 
-if len(user_input) != 7:
-    print("Нужно ввести ровно 7 чисел")
-else:
+has_rub = "руб" in parts
+has_kop = "коп" in parts
 
-    min_value = min(user_input)
-    max_value = max(user_input)
-    total_sum = sum(user_input)
-    average = total_sum / 7
+if not has_rub and not has_kop:
+    print("Некорректный формат суммы")
+    exit()
 
-    print(f"Сумма: {total_sum}")
-    print(f"Среднее: {average}")
-    print(f"Минимум: {min_value}")
-    print(f"Максимум: {max_value}")
+rub, kop = 0, 0
 
-    result = (min_value, max_value, total_sum)
-    print(result)
+if has_rub:
+    index_rub = parts.index("руб")
+    if index_rub > 0:
+        rub_str = parts[index_rub - 1]
+        if rub_str.isdigit():
+            rub = int(rub_str)
+
+if has_kop:
+    index_kop = parts.index("коп")
+    if index_kop > 0:
+        kop_str = parts[index_kop - 1]
+        if kop_str.isdigit():
+            kop = int(kop_str)
+
+if kop >= 100:
+    rub += kop // 100
+    kop = kop % 100
+
+result = rub + kop / 100
+print(f"{result:.2f} ₽")
