@@ -1,33 +1,28 @@
-user_input = input()
+MENU_ITEMS = ["Добавить расход", "Показать все расходы",
+              "Показать сумму и средний расход", "Удалить расход по номеру",
+              "Выход"]
 
-parts = user_input.strip().lower().split()
+ERROR_MESSAGE = 'Выбранный пункт меню находится в разработке'
+ERROR_UNKNOWN_COMMAND = 'Указанная команда отсутствует в списке доступных'
 
-has_rub = "руб" in parts
-has_kop = "коп" in parts
 
-if not has_rub and not has_kop:
-    print("Некорректный формат суммы")
-    exit()
+print('Доступные команды в меню:')
+for item in MENU_ITEMS:
+    print(item, end='\n')
 
-rub, kop = 0, 0
+while True:
+    choice = input("Укажите команду из доступных:").lower()
 
-if has_rub:
-    index_rub = parts.index("руб")
-    if index_rub > 0:
-        rub_str = parts[index_rub - 1]
-        if rub_str.isdigit():
-            rub = int(rub_str)
-
-if has_kop:
-    index_kop = parts.index("коп")
-    if index_kop > 0:
-        kop_str = parts[index_kop - 1]
-        if kop_str.isdigit():
-            kop = int(kop_str)
-
-if kop >= 100:
-    rub += kop // 100
-    kop = kop % 100
-
-result = rub + kop / 100
-print(f"{result:.2f} ₽")
+    match choice:
+        case 'выход':
+            break
+        case 'добавить расход':
+            print(ERROR_MESSAGE)
+        case 'показать все расходы':
+            print(ERROR_MESSAGE)
+        case 'показать сумму и средний расход':
+            print(ERROR_MESSAGE)
+        case 'удалить расход по номеру':
+            print(ERROR_MESSAGE)
+        case _:
+            print(ERROR_UNKNOWN_COMMAND)
